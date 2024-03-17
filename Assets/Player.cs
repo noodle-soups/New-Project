@@ -20,9 +20,15 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        inputHorizontal = Input.GetAxisRaw("Horizontal");
-        inputVertical = Input.GetAxisRaw("Vertical");
-        rb.velocity = new Vector2(inputHorizontal * moveSpeed, inputVertical * moveSpeed);     
+        inputHorizontal = Input.GetAxisRaw("Horizontal") * moveSpeed;
+        inputVertical = Input.GetAxisRaw("Vertical") * moveSpeed;
+        rb.velocity = new Vector2(inputHorizontal, inputVertical);     
+
+        /*
+        inputHorizontal = Input.GetAxisRaw("Horizontal") * moveSpeed * Time.deltaTime;
+        inputVertical = Input.GetAxisRaw("Vertical") * moveSpeed * Time.deltaTime;
+        transform.Translate(inputHorizontal, inputVertical, 0f);
+        */
 
         Debug.Log(inputHorizontal);        
         Debug.Log(inputVertical);        
