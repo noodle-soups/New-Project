@@ -22,7 +22,8 @@ public class Player : MonoBehaviour
     {
         inputHorizontal = Input.GetAxisRaw("Horizontal") * moveSpeed;
         inputVertical = Input.GetAxisRaw("Vertical") * moveSpeed;
-        rb.velocity = new Vector2(inputHorizontal, inputVertical);     
+        //rb.velocity = new Vector2(inputHorizontal, inputVertical);  
+        rb.AddForce(inputHorizontal * Vector2.right);   
 
         /*
         inputHorizontal = Input.GetAxisRaw("Horizontal") * moveSpeed * Time.deltaTime;
