@@ -5,8 +5,8 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 
-    Rigidbody2D rb; // player rigidbody
-    float dt; // Time.deltaTime
+    Rigidbody2D rb;
+    float dt;
 
     // player movement
     float moveInput;
@@ -22,10 +22,9 @@ public class Player : MonoBehaviour
     public LayerMask groundLayerMask;
 
     // jump
-
-
-
- 
+    bool jumpInput;
+    [SerializeField] float jumpForce = 5f;
+    bool canJump = true;
 
 
     void Start()
@@ -34,24 +33,46 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();   
     }
 
- 
     void Update()
     {
-        GroundedCheck();
+        // Check for movement input
+        moveInput = Input.GetAxisRaw("Horizontal");
+        // check for jump input
+        jumpInput = Input.GetKey(KeyCode.Space);
+        // check if grounded
+        IsGrounded();
     }
-
 
     void FixedUpdate()
     {
-        movePlayer();
-        playerJump();
+        MovePlayer();
+        PlayerJump();
     }
 
-
-    void movePlayer()
+    void PlayerJump()
     {
-        // get player input
-        moveInput = Input.GetAxisRaw("Horizontal");
+        // Perform the jump if the space key is held down, the player is grounded, and the player can jump
+        if (jumpInput && isGrounded && canJump)
+        {
+            // apply jump force
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            // Disable jumping until the cooldown period is over
+            canJump = false;
+            // Start the jump cooldown coroutine
+            StartCoroutine(JumpCooldown());
+        }
+    }
+
+    IEnumerator JumpCooldown()
+    {
+        // cooldown
+        yield return new WaitForSeconds(0.1f);
+        // reenable
+        canJump = true; 
+    }
+
+    void MovePlayer()
+    {
         // compute our direction & desired velocity
         float targetSpeed = moveInput * moveSpeed;
         // compute the difference between current velocity and desired velocity
@@ -65,19 +86,9 @@ public class Player : MonoBehaviour
         rb.AddForce(movement * Vector2.right * dt);
     }
 
-    void GroundedCheck()
+    void IsGrounded()
     {
         isGrounded = Physics2D.OverlapBox(groundCheckPosition.position, groundCheckBoxSize, 0f, groundLayerMask);
-    }
-
-    void playerJump()
-    {
-        bool jumpPressed = Input.GetKeyDown(KeyCode.Space);
-        if (jumpPressed)
-        {
-            Debug.Log(jumpPressed);
-            rb.AddForce(Vector2.up * 10f, ForceMode2D.Impulse);
-        }
     }
 
 }
