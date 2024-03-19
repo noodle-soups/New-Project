@@ -8,17 +8,23 @@ public class Player : MonoBehaviour
     Rigidbody2D rb; // player rigidbody
     float dt; // Time.deltaTime
 
+    // player movement
     float moveInput;
     [SerializeField] float moveSpeed = 10f;
     [SerializeField] float acceleration = 7f;
     [SerializeField] float decceleration = 7f;
     [SerializeField] float velPower = 0.9f;
 
-
+    // isGrounded
+    private bool isGrounded;
     public Transform groundCheckPosition;
     public Vector2 groundCheckBoxSize;
     public LayerMask groundLayerMask;
-    private bool isGrounded;
+
+    // jump
+
+
+
  
 
 
@@ -31,13 +37,14 @@ public class Player : MonoBehaviour
  
     void Update()
     {
-        isGrounded = Physics2D.OverlapBox(groundCheckPosition.position, groundCheckBoxSize, 0f, groundLayerMask);
+        GroundedCheck();
     }
 
 
     void FixedUpdate()
     {
         movePlayer();
+        playerJump();
     }
 
 
@@ -56,6 +63,21 @@ public class Player : MonoBehaviour
         float movement = Mathf.Pow(Mathf.Abs(speedDif) * accelRate, velPower) * Mathf.Sign(speedDif);
         // apply force to rigidbody, multiply by Vector2.right to affect only the x-axis
         rb.AddForce(movement * Vector2.right * dt);
+    }
+
+    void GroundedCheck()
+    {
+        isGrounded = Physics2D.OverlapBox(groundCheckPosition.position, groundCheckBoxSize, 0f, groundLayerMask);
+    }
+
+    void playerJump()
+    {
+        bool jumpPressed = Input.GetKeyDown(KeyCode.Space);
+        if (jumpPressed)
+        {
+            Debug.Log(jumpPressed);
+            rb.AddForce(Vector2.up * 10f, ForceMode2D.Impulse);
+        }
     }
 
 }
