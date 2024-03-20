@@ -23,8 +23,10 @@ public class Player : MonoBehaviour
 
     // jump
     bool jumpInput;
-    [SerializeField] float jumpForce = 5f;
     bool canJump = true;
+    [SerializeField] float jumpForce = 5f;
+    [SerializeField] float fallMultiplier = 2.5f;
+
 
 
     void Start()
@@ -60,6 +62,16 @@ public class Player : MonoBehaviour
             canJump = false;
             // Start the jump cooldown coroutine
             StartCoroutine(JumpCooldown());
+        }
+
+        if (rb.velocity.y < 0)
+        {
+            Debug.Log(Physics2D.gravity.y);
+        }
+
+        if (rb.velocity.y < 0)
+        {
+            rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * dt;
         }
     }
 
