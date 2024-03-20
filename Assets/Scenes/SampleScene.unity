@@ -485,7 +485,9 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 64
-  jumpForce: 10
+  jumpForce: 15
+  jumpCutMultiplier: 4
+  fallMultiplier: 2
 --- !u!50 &1560720610
 Rigidbody2D:
   serializedVersion: 4

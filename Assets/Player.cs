@@ -23,8 +23,10 @@ public class Player : MonoBehaviour
 
     // jump
     bool jumpInput;
+    bool jumpCut;
     bool canJump = true;
     [SerializeField] float jumpForce = 5f;
+    [SerializeField] float jumpCutMultiplier = 2f;
     [SerializeField] float fallMultiplier = 2.5f;
 
 
@@ -64,14 +66,21 @@ public class Player : MonoBehaviour
             StartCoroutine(JumpCooldown());
         }
 
-        if (rb.velocity.y < 0)
-        {
-            Debug.Log(Physics2D.gravity.y);
-        }
-
+        // fall multiplier
         if (rb.velocity.y < 0)
         {
             rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * dt;
+        }
+        
+        // jump cut
+        if (rb.velocity.y > 0 && !jumpInput)
+        {
+            jumpCut = true;
+            rb.velocity += Vector2.up * Physics2D.gravity.y * (jumpCutMultiplier - 1) * dt; // this works
+        }
+        else
+        {
+            jumpCut = false;
         }
     }
 
@@ -79,7 +88,7 @@ public class Player : MonoBehaviour
     {
         // cooldown
         yield return new WaitForSeconds(0.1f);
-        // reenable
+        // refresh
         canJump = true; 
     }
 
