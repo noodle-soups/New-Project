@@ -23,12 +23,11 @@ public class Player : MonoBehaviour
 
     // jump
     bool jumpInput;
-    bool jumpCut;
     bool canJump = true;
-    [SerializeField] float jumpForce = 5f;
+    [SerializeField] float jumpForce = 10f;
     [SerializeField] float jumpCutMultiplier = 2f;
     [SerializeField] float fallMultiplier = 2.5f;
-
+    [SerializeField] float maxJumpVelocity = 10f;
 
 
     void Start()
@@ -45,6 +44,9 @@ public class Player : MonoBehaviour
         jumpInput = Input.GetKey(KeyCode.Space);
         // check if grounded
         IsGrounded();
+
+        // debug
+        Debug.Log(rb.velocity);
     }
 
     void FixedUpdate()
@@ -75,12 +77,7 @@ public class Player : MonoBehaviour
         // jump cut
         if (rb.velocity.y > 0 && !jumpInput)
         {
-            jumpCut = true;
-            rb.velocity += Vector2.up * Physics2D.gravity.y * (jumpCutMultiplier - 1) * dt; // this works
-        }
-        else
-        {
-            jumpCut = false;
+            rb.velocity += Vector2.up * Physics2D.gravity.y * (jumpCutMultiplier - 1) * dt;
         }
     }
 
@@ -96,6 +93,14 @@ public class Player : MonoBehaviour
     {
         // compute our direction & desired velocity
         float targetSpeed = moveInput * moveSpeed;
+
+        // If the player is jumping, limit the horizontal speed
+        if (!isGrounded)
+        {
+            // Apply a maximum horizontal velocity when jumping
+            targetSpeed = Mathf.Clamp(targetSpeed, -maxJumpVelocity, maxJumpVelocity);
+        }
+        
         // compute the difference between current velocity and desired velocity
         float speedDif = targetSpeed - rb.velocity.x;
         // decide whether we are accelerating or deccelerating

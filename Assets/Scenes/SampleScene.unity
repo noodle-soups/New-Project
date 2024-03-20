@@ -184,7 +184,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -370,8 +370,8 @@ Transform:
   m_GameObject: {fileID: 1419812540}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -3.3, z: 0}
-  m_LocalScale: {x: 15, y: 0.25, z: 1}
+  m_LocalPosition: {x: 0, y: -7.31, z: 0}
+  m_LocalScale: {x: 33.1875, y: 0.25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -457,7 +457,7 @@ Transform:
   m_GameObject: {fileID: 1560720606}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -3.48, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -476,8 +476,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 214170ca72846804c8267c0de07d72aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 8
-  acceleration: 500
+  moveSpeed: 10
+  acceleration: 1000
   decceleration: 1000
   velPower: 0.9
   groundCheckPosition: {fileID: 993393783}
@@ -486,8 +486,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   jumpForce: 15
-  jumpCutMultiplier: 4
-  fallMultiplier: 2
+  jumpCutMultiplier: 2
+  fallMultiplier: 1.5
+  maxJumpVelocity: 9
 --- !u!50 &1560720610
 Rigidbody2D:
   serializedVersion: 4
@@ -504,7 +505,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 3
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: b9eab6e822bbb0f46a79b815d550dbf4, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -524,7 +525,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1560720606}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: b9eab6e822bbb0f46a79b815d550dbf4, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
