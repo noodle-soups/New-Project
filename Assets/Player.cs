@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     float dt;
 
     // player movement
+    bool isWalking;
     float moveInput;
     [SerializeField] float moveSpeed = 10f;
     [SerializeField] float acceleration = 7f;
@@ -29,11 +30,15 @@ public class Player : MonoBehaviour
     [SerializeField] float fallMultiplier = 2.5f;
     [SerializeField] float maxJumpVelocity = 10f;
 
+    // animator
+    Animator anim;
+
 
     void Start()
     {
         dt = Time.fixedDeltaTime;
         rb = GetComponent<Rigidbody2D>();   
+        anim = GetComponent<Animator>();   
     }
 
     void Update()
@@ -44,9 +49,11 @@ public class Player : MonoBehaviour
         jumpInput = Input.GetKey(KeyCode.Space);
         // check if grounded
         IsGrounded();
+        // check if walking
+        IsWalking();
 
         // debug
-        Debug.Log(rb.velocity);
+        Debug.Log(isWalking);
     }
 
     void FixedUpdate()
@@ -115,6 +122,13 @@ public class Player : MonoBehaviour
     void IsGrounded()
     {
         isGrounded = Physics2D.OverlapBox(groundCheckPosition.position, groundCheckBoxSize, 0f, groundLayerMask);
+    }
+
+
+    void IsWalking()
+    {
+        isWalking = isGrounded && rb.velocity.x > 0.01f;
+        anim.SetBool("isWalking", isWalking);
     }
 
 }
