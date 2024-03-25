@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
     [SerializeField] float fallMultiplier = 2.5f;
     [SerializeField] float maxJumpVelocity = 10f;
 
-    // animator
+    // animation
     Animator anim;
 
 
@@ -53,7 +53,7 @@ public class Player : MonoBehaviour
         IsWalking();
 
         // debug
-        Debug.Log(isWalking);
+        Debug.Log(transform.localScale.x);
     }
 
     void FixedUpdate()
@@ -124,11 +124,9 @@ public class Player : MonoBehaviour
         isGrounded = Physics2D.OverlapBox(groundCheckPosition.position, groundCheckBoxSize, 0f, groundLayerMask);
     }
 
-
     void IsWalking()
     {
-        isWalking = isGrounded && rb.velocity.x > 0.01f;
-        anim.SetBool("isWalking", isWalking);
+        isWalking = isGrounded && Mathf.Abs(rb.velocity.x) > Mathf.Epsilon;
     }
 
 }
