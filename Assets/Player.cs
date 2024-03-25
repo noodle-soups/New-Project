@@ -32,13 +32,15 @@ public class Player : MonoBehaviour
 
     // animation
     Animator anim;
+    SpriteRenderer spriteRenderer;
 
 
     void Start()
     {
         dt = Time.fixedDeltaTime;
         rb = GetComponent<Rigidbody2D>();   
-        anim = GetComponent<Animator>();   
+        anim = GetComponent<Animator>();  
+        spriteRenderer = GetComponent<SpriteRenderer>(); 
     }
 
     void Update()
@@ -53,13 +55,14 @@ public class Player : MonoBehaviour
         IsWalking();
 
         // debug
-        Debug.Log(transform.localScale.x);
+        Debug.Log(spriteRenderer.flipX);
     }
 
     void FixedUpdate()
     {
         MovePlayer();
         PlayerJump();
+        FlipSprite();
     }
 
     void PlayerJump()
@@ -127,6 +130,18 @@ public class Player : MonoBehaviour
     void IsWalking()
     {
         isWalking = isGrounded && Mathf.Abs(rb.velocity.x) > Mathf.Epsilon;
+    }
+
+    void FlipSprite()
+    {
+        if (rb.velocity.x > 0.01f)
+        {
+            spriteRenderer.flipX = false;
+        }
+        if (rb.velocity.x < -0.01f)
+        {
+            spriteRenderer.flipX = true;
+        }
     }
 
 }
