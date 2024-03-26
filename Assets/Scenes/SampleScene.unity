@@ -1228,10 +1228,12 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 64
+  jumpCooldownDuration: 0.1
   jumpForce: 15
   jumpCutMultiplier: 5
   fallMultiplier: 1.5
   maxJumpVelocity: 10
+  coyoteTime: 0.1
 --- !u!50 &1560720610
 Rigidbody2D:
   serializedVersion: 4

@@ -32,7 +32,7 @@ public class Player : MonoBehaviour
     [SerializeField] float maxJumpVelocity = 10f;
 
     // coyote
-    float coyoteTime = 0.5f;
+    [SerializeField] float coyoteTime = 0.5f;
     float coyoteTimeCounter;
 
     // animation
@@ -59,16 +59,6 @@ public class Player : MonoBehaviour
         // check if walking
         IsWalking();
 
-        // coyote
-        if (isGrounded)
-        {
-            coyoteTimeCounter = coyoteTime;
-        }
-        else
-        {
-            coyoteTimeCounter -= dt;
-        }
-
         // debug
         Debug.Log("isGrounded: " + isGrounded + " | canJump: " + canJump + " | coytoteTimeCounter: " + coyoteTimeCounter);
     }
@@ -83,7 +73,8 @@ public class Player : MonoBehaviour
     void PlayerJump()
     {
         // Perform the jump if the space key is held down, the player is grounded, and the player can jump
-        if (canJump && jumpInput && isGrounded)
+        //if (canJump && jumpInput && isGrounded)
+        if (canJump && jumpInput)
         {
             // apply jump force
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
