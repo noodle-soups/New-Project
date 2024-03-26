@@ -1131,7 +1131,8 @@ GameObject:
   - component: {fileID: 1560720607}
   - component: {fileID: 1560720610}
   - component: {fileID: 1560720611}
-  - component: {fileID: 1560720609}
+  - component: {fileID: 1560720612}
+  - component: {fileID: 1560720613}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1207,33 +1208,6 @@ Transform:
   - {fileID: 993393783}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1560720609
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1560720606}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 214170ca72846804c8267c0de07d72aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 8
-  acceleration: 1000
-  decceleration: 1000
-  velPower: 0.9
-  groundCheckPosition: {fileID: 993393783}
-  groundCheckBoxSize: {x: 0.2, y: 0.2}
-  groundLayerMask:
-    serializedVersion: 2
-    m_Bits: 64
-  jumpCooldownDuration: 0.1
-  jumpForce: 15
-  jumpCutMultiplier: 5
-  fallMultiplier: 1.5
-  maxJumpVelocity: 10
-  coyoteTime: 0.1
 --- !u!50 &1560720610
 Rigidbody2D:
   serializedVersion: 4
@@ -1306,6 +1280,39 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.75488335, y: 1.0781568}
   m_EdgeRadius: 0
+--- !u!114 &1560720612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1560720606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2708f9c658d8ba94ea360174f3e7f810, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 8
+  acceleration: 1000
+  decceleration: 1000
+  velPower: 0.9
+--- !u!114 &1560720613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1560720606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24f76e68412c0e24184b4629bc731b42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundCheckPosition: {fileID: 993393783}
+  groundCheckBoxSize: {x: 0.2, y: 0.2}
+  groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &1830980336
 GameObject:
   m_ObjectHideFlags: 0

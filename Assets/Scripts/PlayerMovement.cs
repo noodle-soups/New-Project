@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-
+    // rigidbody
     Rigidbody2D rb;
+
+    // fixed delta time
     float dt;
 
     // player movement
@@ -32,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
         moveInput = Input.GetAxisRaw("Horizontal");
 
         // debug
-        Debug.Log("Testing...");
+        //Debug.Log("Testing...");
     }
 
     void FixedUpdate()
