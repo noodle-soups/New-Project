@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
     [SerializeField] float velPower = 0.9f;
 
     // isGrounded
-    private bool isGrounded;
+    bool isGrounded;
     public Transform groundCheckPosition;
     public Vector2 groundCheckBoxSize;
     public LayerMask groundLayerMask;
@@ -25,10 +25,15 @@ public class Player : MonoBehaviour
     // jump
     bool jumpInput;
     bool canJump = true;
+    [SerializeField] float jumpCooldownDuration = 0.1f;
     [SerializeField] float jumpForce = 10f;
     [SerializeField] float jumpCutMultiplier = 2f;
     [SerializeField] float fallMultiplier = 2.5f;
     [SerializeField] float maxJumpVelocity = 10f;
+
+    // coyote
+    float coyoteTime = 0.5f;
+    float coyoteTimeCounter;
 
     // animation
     Animator anim;
@@ -54,8 +59,18 @@ public class Player : MonoBehaviour
         // check if walking
         IsWalking();
 
+        // coyote
+        if (isGrounded)
+        {
+            coyoteTimeCounter = coyoteTime;
+        }
+        else
+        {
+            coyoteTimeCounter -= dt;
+        }
+
         // debug
-        Debug.Log(spriteRenderer.flipX);
+        Debug.Log("isGrounded: " + isGrounded + " | canJump: " + canJump + " | coytoteTimeCounter: " + coyoteTimeCounter);
     }
 
     void FixedUpdate()
@@ -68,7 +83,7 @@ public class Player : MonoBehaviour
     void PlayerJump()
     {
         // Perform the jump if the space key is held down, the player is grounded, and the player can jump
-        if (jumpInput && isGrounded && canJump)
+        if (canJump && jumpInput && isGrounded)
         {
             // apply jump force
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
@@ -94,9 +109,9 @@ public class Player : MonoBehaviour
     IEnumerator JumpCooldown()
     {
         // cooldown
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(jumpCooldownDuration);
         // refresh
-        canJump = true; 
+        canJump = true;
     }
 
     void MovePlayer()
