@@ -16,6 +16,18 @@ public class PlayerJump : MonoBehaviour
     [SerializeField] Vector2 groundCheckBoxSize;
     [SerializeField] LayerMask groundLayerMask;
 
+    // jump
+    int jumpsAvailable = 1;
+    bool jumpInput;
+    [SerializeField] float jumpForce = 10f;
+
+    // coyote
+    [SerializeField] float coyoteTime = 0.5f;
+    float coyoteTimeCounter;
+
+
+
+
     void Start()
     {
         dt = Time.fixedDeltaTime;
@@ -24,17 +36,48 @@ public class PlayerJump : MonoBehaviour
 
     void Update()
     {
+        //
+        jumpInput = Input.GetKey(KeyCode.Space);
         // check if grounded
         IsGrounded();
 
         // debug
-        Debug.Log("IsGrounded: " + isGrounded);
+        Debug.Log("IsGrounded: " + isGrounded + " | jumpInput: " + jumpInput + " | jumpsAvailable: " + jumpsAvailable);
     }
+
+    void FixedUpdate()
+    {
+        Jump();
+    }
+
 
     void IsGrounded()
     {
         isGrounded = Physics2D.OverlapBox(groundCheckPosition.position, groundCheckBoxSize, 0f, groundLayerMask);
     }
 
+
+    void Jump()
+    {
+        //if (isGrounded && jumpInput)
+        if (isGrounded && jumpInput)
+        {
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        }
+    }
+
+    /*
+    void CoyoteTime()
+    {
+        if (isGrounded)
+        {
+            coyoteTimeCounter = coyoteTime;
+        }
+        else
+        {
+            coyoteTimeCounter -= dt;
+        }
+    }
+    */
 
 }
