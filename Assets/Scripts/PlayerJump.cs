@@ -18,6 +18,7 @@ public class PlayerJump : MonoBehaviour
 
     // jump
     int jumpsAvailable = 1;
+    bool jumpDetection;
     bool jumpInput;
     [SerializeField] float jumpForce = 10f;
 
@@ -38,11 +39,13 @@ public class PlayerJump : MonoBehaviour
     {
         //
         jumpInput = Input.GetKey(KeyCode.Space);
+        // jump input
+        JumpInput();
         // check if grounded
         IsGrounded();
 
         // debug
-        Debug.Log("IsGrounded: " + isGrounded + " | jumpInput: " + jumpInput + " | jumpsAvailable: " + jumpsAvailable);
+        Debug.Log("IsGrounded: " + isGrounded + " | jumpDetection: " + jumpDetection + " | jumpInput: " + jumpInput + " | jumpsAvailable: " + jumpsAvailable);
     }
 
     void FixedUpdate()
@@ -54,6 +57,12 @@ public class PlayerJump : MonoBehaviour
     void IsGrounded()
     {
         isGrounded = Physics2D.OverlapBox(groundCheckPosition.position, groundCheckBoxSize, 0f, groundLayerMask);
+    }
+
+    void JumpInput()
+    {
+        jumpDetection = Input.GetKeyDown(KeyCode.Space);
+        jumpInput = Input.GetKey(KeyCode.Space);
     }
 
 
